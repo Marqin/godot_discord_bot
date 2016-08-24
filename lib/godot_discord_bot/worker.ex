@@ -6,7 +6,10 @@ defmodule GodotDiscordBot.Worker do
   end
 
   def handle_event({:message_create, payload}, state) do
-    Task.start fn -> GodotDiscordBot.Bot.handle_message(payload, state) end
+    # ignore messages from bots
+    if ! payload.data["author"]["bot"] do
+      Task.start fn -> GodotDiscordBot.Bot.handle_message(payload, state) end
+    end
     {:ok, state}
   end
 
