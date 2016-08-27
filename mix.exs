@@ -17,6 +17,6 @@ defmodule GodotDiscordBot.Mixfile do
 
   defp deps do
     #[{:discord_ex, "~> 1.1.4"}]  # wait for PR to be merged
-    [{:discord_ex, git: "https://github.com/Marqin/discord_ex.git", ref: "cf6b5a95a87d21a5dd3c6550df94e4b8960b4be9"}]
+    [{:discord_ex, git: "https://github.com/Marqin/discord_ex.git", branch: "for_godot_bot"}]
   end
 end
