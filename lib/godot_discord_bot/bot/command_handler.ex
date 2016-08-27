@@ -2,14 +2,15 @@ defmodule GodotDiscordBot.Bot.CommandHandler do
 
   alias DiscordEx.RestClient.Resources.Channel
 
-  def handle({"class", [class|_rest]}, data, state) do
-      msg = "http://docs.godotengine.org/en/latest/classes/class_" <> String.downcase(class) <> ".html"
-      Channel.send_message(state[:rest_client], data["channel_id"], %{content: URI.encode(msg)})
+  def handle({"class", arg}, data, state) do
+    [class|_rest] = String.split(arg)
+    msg = "http://docs.godotengine.org/en/latest/classes/class_" <> String.downcase(class) <> ".html"
+    Channel.send_message(state[:rest_client], data["channel_id"], %{content: URI.encode(msg)})
   end
 
   def handle({"docs", query}, data, state) do
-      msg = "http://docs.godotengine.org/en/latest/search.html?q=" <> Enum.join(query, " ")
-      Channel.send_message(state[:rest_client], data["channel_id"], %{content: URI.encode(msg)})
+    msg = "http://docs.godotengine.org/en/latest/search.html?q=" <> query
+    Channel.send_message(state[:rest_client], data["channel_id"], %{content: URI.encode(msg)})
   end
 
   def handle({"info", _}, data, state) do
